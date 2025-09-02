@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amishi Verma - Google Student Ambassador Pitch</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Google Inspired (Light Gray, Blue, Red, Yellow, Green) -->
+    <!-- Application Structure Plan: A thematic, single-page portfolio with persistent sidebar navigation. This structure transforms the linear pitch deck into an interactive, explorable profile, allowing recruiters to quickly access key sections like projects and skills. Interactive cards for projects encourage engagement and present detailed information on demand, improving usability over a static list. The new "Ask Me Anything" chat feature, powered by the Gemini API, provides a novel, highly engaging interaction that demonstrates a deeper understanding of LLM capabilities. This new section is placed at the bottom, offering a final, impactful call to action. -->
+    <!-- Visualization & Content Choices: SheGuard/Vertex/Figma Projects -> Goal: Inform/Compare -> Viz: Interactive HTML cards -> Interaction: Click to reveal details -> Justification: Focuses user attention and encourages exploration -> Library: Vanilla JS. Skills -> Goal: Inform -> Viz: Radar Chart -> Interaction: Hover tooltips -> Justification: Provides a quick, data-driven summary of multi-faceted abilities -> Library: Chart.js. GSA Vision -> Goal: Organize -> Viz: HTML/CSS Roadmap -> Interaction: Hover effects -> Justification: More visually engaging than a bulleted list for presenting a plan. New "Chat" feature -> Goal: Engage/Inform -> Viz: Chat interface -> Interaction: User input with dynamic LLM response -> Justification: Creates a personalized, interactive experience that showcases technical and creative skills. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            color: #3c4043;
+        }
+        .g-blue { color: #4285F4; }
+        .g-red { color: #EA4335; }
+        .g-yellow { color: #FBBC05; }
+        .g-green { color: #34A853; }
+        .bg-g-blue { background-color: #4285F4; }
+        .bg-g-red { background-color: #EA4335; }
+        .bg-g-yellow { background-color: #FBBC05; }
+        .bg-g-green { background-color: #34A853; }
+        .nav-link.active {
+            background-color: #e8f0fe;
+            color: #1967d2;
+            font-weight: 600;
+        }
+        .project-card.active {
+            border-color: #4285F4;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .detail-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .detail-content.active {
+            display: block;
+            opacity: 1;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .chat-container {
+            height: 400px;
+            overflow-y: auto;
+            border-radius: 1rem;
+        }
+        .chat-message {
+            max-width: 80%;
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="flex">
+
+    <nav id="sidebar" class="hidden md:block w-64 bg-white/80 backdrop-blur-sm border-r border-gray-200 p-6 fixed h-full">
+        <div class="flex items-center space-x-2 mb-8">
+             <div class="w-8 h-8 flex items-center justify-center rounded-full bg-g-blue text-white text-lg font-bold">A</div>
+             <h2 class="text-xl font-bold text-gray-800">Amishi Verma</h2>
+        </div>
+        <ul class="space-y-2">
+            <li><a href="#home" class="nav-link block px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors">Home</a></li>
+            <li><a href="#journey" class="nav-link block px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors">My Journey</a></li>
+            <li><a href="#creativity" class="nav-link block px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors">Creative Spark</a></li>
+            <li><a href="#vision" class="nav-link block px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors">My Vision</a></li>
+            <li><a href="#contact" class="nav-link block px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors">Connect</a></li>
+        </ul>
+    </nav>
+
+    <main class="w-full md:ml-64">
+        <div class="max-w-5xl mx-auto p-6 md:p-12">
+
+            <section id="home" class="min-h-screen flex flex-col justify-center items-center text-center">
+                <div class="max-w-3xl">
+                    <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-gray-800 mb-4">
+                        Hi! I’m <span class="g-blue">Amishi Verma</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-600">
+                        Tech Enthusiast<span class="g-red"> &bull; </span>AI Explorer<span class="g-yellow"> &bull; </span>Design Thinker
+                    </p>
+                    <p class="mt-6 text-lg text-gray-500">
+                        This is my interactive pitch to become a Google Student Ambassador. I'm passionate about using technology to solve real-world problems and build communities. Scroll down to explore my journey, my vision, and why I'm the perfect fit for this role.
+                    </p>
+                </div>
+            </section>
+
+            <section id="journey" class="py-20">
+                <h2 class="text-3xl font-bold text-center mb-4">My Innovation Journey</h2>
+                <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
+                    I believe in turning ideas into action. Here's a look at the projects I've built and the skills I've developed using powerful tools. Click on any project to see its real-world impact.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                    <div id="card-sheguard" class="project-card active cursor-pointer p-6 bg-white rounded-xl border-2 border-transparent shadow-sm hover:shadow-lg transition-all duration-300">
+                        <div class="w-12 h-12 rounded-lg bg-g-red/10 g-red flex items-center justify-center mb-4">
+                            <span class="text-2xl">🛡️</span>
+                        </div>
+                        <h3 class="font-semibold text-lg">SheGuard App</h3>
+                        <p class="text-sm text-gray-500">AI-Powered Safety</p>
+                    </div>
+                    <div id="card-vertex" class="project-card cursor-pointer p-6 bg-white rounded-xl border-2 border-transparent shadow-sm hover:shadow-lg transition-all duration-300">
+                        <div class="w-12 h-12 rounded-lg bg-g-blue/10 g-blue flex items-center justify-center mb-4">
+                            <span class="text-2xl">☁️</span>
+                        </div>
+                        <h3 class="font-semibold text-lg">Vertex AI</h3>
+                        <p class="text-sm text-gray-500">Cloud ML Skills</p>
+                    </div>
+                    <div id="card-figma" class="project-card cursor-pointer p-6 bg-white rounded-xl border-2 border-transparent shadow-sm hover:shadow-lg transition-all duration-300">
+                        <div class="w-12 h-12 rounded-lg bg-g-yellow/10 g-yellow flex items-center justify-center mb-4">
+                            <span class="text-2xl">🎨</span>
+                        </div>
+                        <h3 class="font-semibold text-lg">Figma Designs</h3>
+                        <p class="text-sm text-gray-500">UI/UX Prototypes</p>
+                    </div>
+                    <div id="card-hackathons" class="project-card cursor-pointer p-6 bg-white rounded-xl border-2 border-transparent shadow-sm hover:shadow-lg transition-all duration-300">
+                        <div class="w-12 h-12 rounded-lg bg-g-green/10 g-green flex items-center justify-center mb-4">
+                            <span class="text-2xl">🏆</span>
+                        </div>
+                        <h3 class="font-semibold text-lg">Hackathons</h3>
+                        <p class="text-sm text-gray-500">Competitive Solutions</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-md min-h-[200px]">
+                    <div id="detail-sheguard" class="detail-content active">
+                        <h3 class="text-xl font-bold mb-2 g-red">SheGuard App: Offline-First Women's Safety</h3>
+                        <p class="text-gray-700">Powered by Gemma 3n AI via Ollama, this app enhances safety in real scenarios by providing critical features even without an internet connection. It's a testament to how modern AI can be deployed for direct community impact.</p>
+                    </div>
+                    <div id="detail-vertex" class="detail-content">
+                        <h3 class="text-xl font-bold mb-2 g-blue">Vertex AI Badge: Cloud Machine Learning</h3>
+                        <p class="text-gray-700">Earning this badge demonstrates my skills in cloud ML and deploying sophisticated AI models. I've worked on cloud-based projects that analyze and visualize complex data, turning raw information into actionable insights.</p>
+                    </div>
+                    <div id="detail-figma" class="detail-content">
+                         <h3 class="text-xl font-bold mb-2 g-yellow">Figma UI/UX: Human-Centered Design</h3>
+                        <p class="text-gray-700">I create intuitive, human-centered prototypes that solve real problems. My design philosophy is to build interfaces that are not only functional but also accessible and enjoyable to use, ensuring technology serves people effectively.</p>
+                    </div>
+                    <div id="detail-hackathons" class="detail-content">
+                        <h3 class="text-xl font-bold mb-2 g-green">Hackathons: Creative Problem-Solving Under Pressure</h3>
+                        <p class="text-gray-700">I thrive in competitive environments where I develop unique solutions to complex challenges. My recognition in various hackathons showcases my ability to innovate, collaborate, and deliver effective results quickly.</p>
+                    </div>
+                </div>
+
+                <div class="mt-16">
+                    <h3 class="text-2xl font-bold text-center mb-8">My Technical Skillset</h3>
+                    <div class="chart-container">
+                        <canvas id="skillsChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="creativity" class="py-20 bg-gray-50 rounded-2xl">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-3xl font-bold text-center mb-4">Beyond Coding: The Creative Spark</h2>
+                    <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
+                        Technology is a canvas for creativity. I love finding innovative ways to apply my skills, whether it's solving campus problems, automating workflows, or simply making technology more fun and accessible for everyone.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-8 text-center">
+                        <div class="bg-white p-6 rounded-xl shadow-sm">
+                            <div class="text-4xl mb-3">💡</div>
+                            <h3 class="font-semibold text-lg mb-2">Campus Solutions</h3>
+                            <p class="text-gray-600 text-sm">Designing Figma prototypes to tackle local challenges and improve student life.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm">
+                            <div class="text-4xl mb-3">⚙️</div>
+                            <h3 class="font-semibold text-lg mb-2">Workspace Automation</h3>
+                            <p class="text-gray-600 text-sm">Building scripts and workflows in Google Workspace to save time and boost productivity.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm">
+                            <div class="text-4xl mb-3">🎬</div>
+                            <h3 class="font-semibold text-lg mb-2">Engaging Content</h3>
+                            <p class="text-gray-600 text-sm">Creating demo videos and tutorials to make complex tech topics easy to understand.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="vision" class="py-20">
+                <h2 class="text-3xl font-bold text-center mb-4">My Google Ambassador Vision</h2>
+                 <p class="text-center text-gray-600 max-w-2xl mx-auto mb-12">
+                    As an ambassador, my mission would be to build a vibrant tech community on campus. Here's my roadmap for inspiring my peers and creating a lasting impact with Google's tools and platforms.
+                </p>
+                <div class="flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 md:space-x-4">
+                    <div class="flex items-center flex-col text-center w-full md:w-1/3 p-4">
+                        <div class="w-16 h-16 bg-g-blue/10 g-blue rounded-full flex items-center justify-center text-3xl font-bold mb-4">1</div>
+                        <h3 class="font-semibold text-xl mb-2">Inspire & Explore</h3>
+                        <p class="text-gray-600">Organize events to introduce students to the latest in Google AI, Cloud, and Developer Tools.</p>
+                    </div>
+                     <div class="text-gray-300 hidden md:block text-2xl font-light">&rarr;</div>
+                    <div class="flex items-center flex-col text-center w-full md:w-1/3 p-4">
+                         <div class="w-16 h-16 bg-g-green/10 g-green rounded-full flex items-center justify-center text-3xl font-bold mb-4">2</div>
+                        <h3 class="font-semibold text-xl mb-2">Educate & Empower</h3>
+                        <p class="text-gray-600">Lead hands-on workshops, hackathons, and tutorials to build practical, in-demand skills.</p>
+                    </div>
+                     <div class="text-gray-300 hidden md:block text-2xl font-light">&rarr;</div>
+                    <div class="flex items-center flex-col text-center w-full md:w-1/3 p-4">
+                        <div class="w-16 h-16 bg-g-red/10 g-red rounded-full flex items-center justify-center text-3xl font-bold mb-4">3</div>
+                        <h3 class="font-semibold text-xl mb-2">Bridge & Build</h3>
+                        <p class="text-gray-600">Connect students with resources, bridging the gap between creativity, technology, and community impact.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="py-20 text-center">
+                <h2 class="text-3xl font-bold mb-4">Let’s Make Tech Fun & Impactful.</h2>
+                <div class="mt-8 text-2xl font-medium italic text-gray-700 bg-yellow-100/50 p-6 rounded-lg inline-block">
+                    <p>"I <span class="g-blue">code</span>, I <span class="g-red">create</span>, I <span class="g-yellow">innovate</span>,</p>
+                    <p>With Google tools, let’s <span class="g-green">elevate</span>!"</p>
+                </div>
+                 <p class="mt-8 text-gray-600">Thank you for considering my application.</p>
+            </section>
+
+            <section id="chat" class="py-20 bg-gray-50 rounded-2xl">
+                <div class="max-w-xl mx-auto">
+                    <h2 class="text-3xl font-bold text-center mb-4">Chat with Amishi Verma ✨</h2>
+                    <p class="text-center text-gray-600 mb-8">
+                        Ask me anything about my projects, skills, or vision, and I'll respond!
+                    </p>
+                    <div class="bg-white p-6 rounded-xl shadow-md flex flex-col h-[500px]">
+                        <div id="chat-messages" class="chat-container flex flex-col flex-grow mb-4 p-4 rounded-xl border border-gray-200">
+                             <div class="chat-message bg-gray-100 text-gray-800 self-start">
+                                Hi there! I'm a digital assistant ready to answer your questions about my portfolio.
+                            </div>
+                        </div>
+                        <form id="chat-form" class="flex">
+                            <input type="text" id="chat-input" placeholder="Ask a question..." class="flex-grow rounded-l-lg border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-g-blue" autocomplete="off" />
+                            <button type="submit" class="bg-g-blue text-white p-3 rounded-r-lg hover:bg-g-blue/90 transition-colors duration-200">Send</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.5
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${id}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    }, observerOptions);
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+
+    const projectCards = document.querySelectorAll('.project-card');
+    const detailContents = document.querySelectorAll('.detail-content');
+
+    const showDetails = (id) => {
+        projectCards.forEach(card => card.classList.remove('active'));
+        detailContents.forEach(content => content.classList.remove('active'));
+
+        document.getElementById(`card-${id}`).classList.add('active');
+        document.getElementById(`detail-${id}`).classList.add('active');
+    };
+
+    projectCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const id = card.id.split('-')[1];
+            showDetails(id);
+        });
+    });
+
+    const skillsCtx = document.getElementById('skillsChart').getContext('2d');
+    new Chart(skillsCtx, {
+        type: 'radar',
+        data: {
+            labels: ['AI / ML', 'Cloud (Vertex AI)', 'UI/UX Design', 'Problem Solving', 'Leadership'],
+            datasets: [{
+                label: 'My Skill Level',
+                data: [90, 85, 95, 90, 80],
+                backgroundColor: 'rgba(66, 133, 244, 0.2)',
+                borderColor: 'rgba(66, 133, 244, 1)',
+                borderWidth: 2,
+                pointBackgroundColor: 'rgba(66, 133, 244, 1)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgba(66, 133, 244, 1)'
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            scales: {
+                r: {
+                    angleLines: {
+                        color: 'rgba(0, 0, 0, 0.1)'
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.1)'
+                    },
+                    pointLabels: {
+                        font: {
+                            size: 14,
+                            family: 'Inter',
+                        },
+                         color: '#3c4043'
+                    },
+                    ticks: {
+                        backdropColor: 'rgba(255, 255, 255, 0.75)',
+                        stepSize: 20
+                    },
+                    suggestedMin: 0,
+                    suggestedMax: 100
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.dataset.label}: ${context.raw}%`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    const chatForm = document.getElementById('chat-form');
+    const chatInput = document.getElementById('chat-input');
+    const chatMessages = document.getElementById('chat-messages');
+
+    const personaContent = `
+        Hello, I am Amishi Verma's digital portfolio assistant. I have been trained on all the information on this page, including Amishi Verma's projects, skills, and vision. I will answer your questions and provide insights about Amishi Verma's qualifications and passion for becoming a Google Student Ambassador. I can answer questions about:
+        - The SheGuard App, its tech stack (Gemma 3n AI, Ollama), and its purpose.
+        - My experience with Vertex AI and cloud machine learning.
+        - My skills in UI/UX design and Figma.
+        - My general technical skills and leadership abilities.
+        - My vision for a campus community as a Google Student Ambassador.
+        Please keep your questions focused on the content of this portfolio.
+    `;
+
+    const fetchWithRetry = async (url, options, retries = 3) => {
+        for (let i = 0; i < retries; i++) {
+            try {
+                const response = await fetch(url, options);
+                if (response.status === 429) {
+                    await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000));
+                    continue;
+                }
+                return response;
+            } catch (error) {
+                if (i < retries - 1) {
+                    await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000));
+                } else {
+                    throw error;
+                }
+            }
+        }
+    };
+
+    const addMessage = (text, sender) => {
+        const messageDiv = document.createElement('div');
+        messageDiv.textContent = text;
+        messageDiv.classList.add('chat-message');
+        if (sender === 'user') {
+            messageDiv.classList.add('bg-blue-100', 'text-gray-800', 'self-end');
+        } else {
+            messageDiv.classList.add('bg-gray-100', 'text-gray-800', 'self-start');
+        }
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    };
+
+    chatForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const userMessage = chatInput.value.trim();
+        if (!userMessage) return;
+
+        addMessage(userMessage, 'user');
+        chatInput.value = '';
+
+        const thinkingMessage = addMessage('...', 'gemini');
+        
+        try {
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: [{ parts: [{ text: userMessage }] }],
+                tools: [{ "google_search": {} }],
+                systemInstruction: {
+                    parts: [{ text: personaContent }]
+                },
+            };
+            
+            const response = await fetchWithRetry(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            
+            const result = await response.json();
+            
+            let geminiMessage = 'Sorry, I couldn\'t get a response. Please try again.';
+            if (result.candidates && result.candidates.length > 0 && result.candidates[0].content && result.candidates[0].content.parts && result.candidates[0].content.parts.length > 0) {
+                geminiMessage = result.candidates[0].content.parts[0].text;
+            }
+
+            chatMessages.removeChild(thinkingMessage);
+            addMessage(geminiMessage, 'gemini');
+        } catch (error) {
+            console.error('API call failed:', error);
+            chatMessages.removeChild(thinkingMessage);
+            addMessage('An error occurred. Please check the console.', 'gemini');
+        }
+    });
+});
+</script>
+</body>
+</html>
