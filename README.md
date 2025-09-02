@@ -17,7 +17,7 @@ I chose to present my pitch as a webpage to go beyond a traditional presentation
 - **UI/UX Design:** Creating a human-centered design that is intuitive and easy to navigate.
 
 ## How to View
-The live version of this pitch is hosted using GitHub Pages. You can view the site by visiting the following URL: [https://amishiverma.github.io/AmishiVerma-Website/](https://amishiverma.github.io/AmishiVerma-Website/)
+The live version of this pitch is hosted using GitHub Pages. You can view the site by visiting the following URL: [(https://github.com/amishiverma/AmishiVerma-Website)](https://github.com/amishiverma/AmishiVerma-Website)
 
 ## Tech Stack
 - **Frontend:** HTML5, Tailwind CSS  
